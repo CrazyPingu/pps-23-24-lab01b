@@ -1,0 +1,70 @@
+@startuml uml
+
+interface ChessPiece {
+    + move(row: int, col: int): boolean
+    + getPosition(): Pair<Integer, Integer>
+    + setPosition(position: Pair<Integer, Integer>): void
+}
+abstract class ChessPieceAbstract {
+    - position: Pair<Integer, Integer>
+    + ChessPieceAbstract(position: Pair<Integer, Integer>)
+    + getPosition(): Pair<Integer, Integer>
+    + setPosition(position: Pair<Integer, Integer>): void
+}
+
+class Knight {
+    - size: int
+    + Knight(position: Pair<Integer, Integer>, size: int)
+    + move(row: int, col: int): boolean
+}
+
+class Pawn {
+    + Pawn(position: Pair<Integer, Integer>)
+    + move(row: int, col: int): boolean
+}
+
+interface PositionGenerator {
+    + getRandomEmptyPosition(size: int, occupiedPosition: List<Pair<Integer, Integer>>): Pair<Integer, Integer>
+}
+
+class PositionGeneratorImpl {
+    - random: Random
+    + PositionGeneratorImpl()
+    + getRandomEmptyPosition(size: int, occupiedPosition: List<Pair<Integer, Integer>>): Pair<Integer, Integer>
+}
+
+class LogicsImpl {
+    - pawn: Pawn
+    - knight: ChessPieceAbstract
+    - pg: PositionGenerator
+    - size: int
+}
+
+Interface Logics {
+    + hit(row: int, col: int): boolean
+    + hasKnight(row: int, col: int): boolean
+    + hasPawn(row: int, col: int): boolean
+}
+
+class GUI {
+    - buttons: Map<JButton, Pair<Integer, Integer>>
+    - logics: Logics
+    + GUI()
+    + draw(): void
+}
+
+Main --> GUI
+GUI --o  LogicsImpl
+
+class LogicsImpl implements Logics
+
+LogicsImpl --o Knight
+LogicsImpl --o Pawn
+LogicsImpl --o PositionGeneratorImpl
+
+class ChessPieceAbstract implements ChessPiece
+class Knight extends ChessPieceAbstract
+class Pawn extends ChessPieceAbstract
+class PositionGeneratorImpl implements PositionGenerator
+
+@enduml
