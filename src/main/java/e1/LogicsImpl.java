@@ -1,6 +1,8 @@
 package e1;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LogicsImpl implements Logics {
 
@@ -22,15 +24,19 @@ public class LogicsImpl implements Logics {
         this.knight = new Knight(knightPos, size);
     }
 
+    /**
+     * Generate a random empty position
+     *
+     * @return a new empty position
+     */
     private Pair<Integer, Integer> randomEmptyPosition() {
-        List<Pair<Integer, Integer>> occupiedPosition = new ArrayList<>();
-        if (this.knight != null) {
-            occupiedPosition.add(this.knight.getPosition());
-        }
-        if (this.pawn != null) {
-            occupiedPosition.add(this.pawn.getPosition());
-        }
+        List<Pair<Integer, Integer>> occupiedPosition = Stream.of(this.knight, this.pawn)
+                .filter(Objects::nonNull)
+                .map(ChessPiece::getPosition)
+                .collect(Collectors.toList());
+
         return this.pg.getRandomEmptyPosition(this.size, occupiedPosition);
+
     }
 
     @Override
