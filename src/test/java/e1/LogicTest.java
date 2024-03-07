@@ -5,6 +5,9 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LogicTest {
+    /**
+     * Test the correct functionality of the logic class
+     */
 
     @Test
     public void testKnightHit() {
@@ -16,6 +19,32 @@ public class LogicTest {
         assertFalse(logics.hit(knightPos.getX(), knightPos.getY()));
         assertFalse(logics.hit(0, 0));
         assertFalse(logics.hit(1, 1));
+    }
+
+    @Test
+    public void checkKnightPresence() {
+        Logics logics = new LogicsImpl(5);
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (logics.hasKnight(i, j)) {
+                    assertTrue(logics.hasKnight(i, j));
+                }
+            }
+        }
+    }
+
+    @Test
+    public void checkPawnPresence() {
+        Logics logics = new LogicsImpl(5);
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (logics.hasPawn(i, j)) {
+                    assertTrue(logics.hasPawn(i, j));
+                }
+            }
+        }
     }
 
 }
