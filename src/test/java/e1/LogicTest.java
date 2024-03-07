@@ -4,10 +4,10 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test the correct functionality of the logic class
+ */
 public class LogicTest {
-    /**
-     * Test the correct functionality of the logic class
-     */
 
     @Test
     public void testKnightHit() {
